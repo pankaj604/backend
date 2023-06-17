@@ -53,7 +53,7 @@ export const hostles = async (req, res, next) => {
 
 export const add = async (req, res, next) => {
   try {
-    const { city, rent, forr, } = req.body;
+    const { city, rent, forr, address,mobile } = req.body;
     const room = await Room.create({
       city,
       rent,
