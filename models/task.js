@@ -4,12 +4,13 @@ const roomSchema = new mongoose.Schema({
   city: "string",
   rent: "string",
   forr: "string",
+  address : "string",
+  mobile : "string",
   user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
   },
-  address : "string",
-  mobile : "string",
+
   status: {
     type: Boolean,
     default: true,
