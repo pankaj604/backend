@@ -8,6 +8,8 @@ const roomSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
   },
+  address : "string",
+  mobile : "string",
   switch: {
     type: Boolean,
     default: true,
