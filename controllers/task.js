@@ -58,6 +58,8 @@ export const add = async (req, res, next) => {
       city,
       rent,
       forr,
+      address,
+      mobile,
       user: req.user,
     
     });
