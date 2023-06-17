@@ -10,7 +10,7 @@ const roomSchema = new mongoose.Schema({
   },
   address : "string",
   mobile : "string",
-  switch: {
+  status: {
     type: Boolean,
     default: true,
   },
