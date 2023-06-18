@@ -8,7 +8,7 @@ import jwt from "jsonwebtoken";
 
 export const boys = async (req, res, next) => {
   try {
-    const rooms = await Room.find({ forr: "boys" });
+    const rooms = await Room.find({ forr: "boys",status : true });
     res.status(200).json({
       success: true,
       rooms,
@@ -19,7 +19,7 @@ export const boys = async (req, res, next) => {
 };
 export const girls = async (req, res, next) => {
   try {
-    const rooms = await Room.find({ forr: "girls" });
+    const rooms = await Room.find({ forr: "girls" ,status : true});
     res.status(200).json({
       success: true,
       rooms,
@@ -30,7 +30,7 @@ export const girls = async (req, res, next) => {
 };
 export const pg = async (req, res, next) => {
   try {
-    const rooms = await Room.find({ forr: "pg", switch: true });
+    const rooms = await Room.find({ forr: "pg", status: true });
     res.status(200).json({
       success: true,
       rooms,
@@ -41,7 +41,7 @@ export const pg = async (req, res, next) => {
 };
 export const hostles = async (req, res, next) => {
   try {
-    const rooms = await Room.find({ forr: "hostles" });
+    const rooms = await Room.find({ forr: "hostles" ,status : true });
     res.status(200).json({
       success: true,
       rooms,
