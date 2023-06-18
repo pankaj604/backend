@@ -105,7 +105,7 @@ export const update = async (req, res,next) => {
   try {
     const { id } = req.params;
     const room = await Room.findById(id);
-    room.switch = !room.switch;
+    room.status = !room.status;
     room.save();
 
     res.status(200).json({
