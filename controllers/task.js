@@ -55,7 +55,10 @@ export const add = async (req, res, next) => {
   try {
     const { city, rent, forr, address, mobile } = req.body;
     //
-  
+
+    const file = req.file;
+
+    // Add any additional fields you need, such as user ID
 
     //
     const room = await Room.create({
@@ -65,7 +68,7 @@ export const add = async (req, res, next) => {
       address,
       mobile,
       user: req.user,
-      
+      image : file,
     });
 
     return res.status(200).json({
