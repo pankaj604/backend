@@ -34,7 +34,7 @@ taskrouter.get("/girls", isAuthenticated, girls);
 taskrouter.get("/pg", isAuthenticated, pg);
 taskrouter.get("/hostles", isAuthenticated, hostles);
 taskrouter.get("/all", isAuthenticated, all);
-taskrouter.post("/add", isAuthenticated,upload.single('image'), add);
+taskrouter.post("/add", isAuthenticated, add);
 taskrouter.put("/update/:id", isAuthenticated, update);
 taskrouter.delete("/delet/:id", isAuthenticated, delet);
 taskrouter.get("/myrooms", isAuthenticated, mydata);

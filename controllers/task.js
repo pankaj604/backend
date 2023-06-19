@@ -55,7 +55,7 @@ export const add = async (req, res, next) => {
   try {
     const { city, rent, forr, address, mobile } = req.body;
     //
-    const imageUrl = req.file.path
+  
 
     //
     const room = await Room.create({
@@ -65,7 +65,7 @@ export const add = async (req, res, next) => {
       address,
       mobile,
       user: req.user,
-      imageUrl
+      
     });
 
     return res.status(200).json({

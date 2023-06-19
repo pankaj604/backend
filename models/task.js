@@ -14,7 +14,7 @@ const roomSchema = new mongoose.Schema({
     type: Boolean,
     default: true,
   },
-  imageUrl : "String",
+
 });
 
 export const Room = mongoose.model("Room", roomSchema);
