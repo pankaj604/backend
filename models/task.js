@@ -10,11 +10,11 @@ const roomSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
   },
-
   status: {
     type: Boolean,
     default: true,
   },
+  imageUrl : "String",
 });
 
 export const Room = mongoose.model("Room", roomSchema);

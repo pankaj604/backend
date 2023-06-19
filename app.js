@@ -19,6 +19,7 @@ app.use(cors({
 app.use(express.urlencoded());
 app.use(express.json());
 app.use(cookieParser());
+app.use('/uploads', express.static('uploads'))
 app.use("/v1/user", router);
 app.use("/v1/room", taskrouter);
 app.get("/",(req,res)=>{
