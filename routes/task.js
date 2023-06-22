@@ -15,10 +15,10 @@ import {
 
 const taskrouter = express.Router();
 
-taskrouter.get("/boys", isAuthenticated, boys);
-taskrouter.get("/girls", isAuthenticated, girls);
-taskrouter.get("/pg", isAuthenticated, pg);
-taskrouter.get("/hostles", isAuthenticated, hostles);
+taskrouter.get("/boys", boys);
+taskrouter.get("/girls", girls);
+taskrouter.get("/pg", pg);
+taskrouter.get("/hostles", hostles);
 taskrouter.get("/all", isAuthenticated, all);
 taskrouter.post("/add",isAuthenticated, add);
 taskrouter.put("/update/:id", isAuthenticated, update);
