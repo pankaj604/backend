@@ -18,7 +18,7 @@ export const add = async (req, res, next) => {
       const image = result.url;
 
       const { city, rent, forr, address, mobile } = req.body;
-      const user = req.user
+      const user = req.user;
       const room = await Room.create({
         city,
         rent,
@@ -40,7 +40,11 @@ export const add = async (req, res, next) => {
 
 export const boys = async (req, res, next) => {
   try {
-    const rooms = await Room.find({ forr: "boys", status: true });
+    const rooms = await Room.find({
+      $or: [{ forr: "boys" }, { forr: "everyone" }],
+      status: true,
+    });
+
     res.status(200).json({
       success: true,
       rooms,
@@ -51,7 +55,21 @@ export const boys = async (req, res, next) => {
 };
 export const girls = async (req, res, next) => {
   try {
-    const rooms = await Room.find({ forr: "girls", status: true });
+    const rooms = await Room.find({
+      $or: [{ forr: "girls" }, { forr: "everyone" }],
+      status: true,
+    });
+    res.status(200).json({
+      success: true,
+      rooms,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+export const everyone = async (req, res, next) => {
+  try {
+    const rooms = await Room.find({ forr: "everyone", status: true });
     res.status(200).json({
       success: true,
       rooms,

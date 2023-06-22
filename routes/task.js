@@ -11,6 +11,7 @@ import {
   delet,
   update,
   mydata,
+  everyone,
 } from "../controllers/task.js";
 
 const taskrouter = express.Router();
@@ -18,6 +19,7 @@ const taskrouter = express.Router();
 taskrouter.get("/boys", boys);
 taskrouter.get("/girls", girls);
 taskrouter.get("/pg", pg);
+taskrouter.get("/everyone", everyone);
 taskrouter.get("/hostles", hostles);
 taskrouter.get("/all", isAuthenticated, all);
 taskrouter.post("/add",isAuthenticated, add);
