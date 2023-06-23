@@ -40,9 +40,11 @@ export const add = async (req, res, next) => {
 
 export const boys = async (req, res, next) => {
   try {
+    const { city } = req.params;
     const rooms = await Room.find({
       $or: [{ forr: "boys" }, { forr: "everyone" }],
       status: true,
+      city: city,
     });
 
     res.status(200).json({
@@ -55,9 +57,11 @@ export const boys = async (req, res, next) => {
 };
 export const girls = async (req, res, next) => {
   try {
+    const { city } = req.params;
     const rooms = await Room.find({
       $or: [{ forr: "girls" }, { forr: "everyone" }],
       status: true,
+      city: city,
     });
     res.status(200).json({
       success: true,
@@ -69,7 +73,12 @@ export const girls = async (req, res, next) => {
 };
 export const everyone = async (req, res, next) => {
   try {
-    const rooms = await Room.find({ forr: "everyone", status: true });
+    const { city } = req.params;
+    const rooms = await Room.find({
+      forr: "everyone",
+      status: true,
+      city: city,
+    });
     res.status(200).json({
       success: true,
       rooms,
@@ -80,7 +89,8 @@ export const everyone = async (req, res, next) => {
 };
 export const pg = async (req, res, next) => {
   try {
-    const rooms = await Room.find({ forr: "pg", status: true });
+    const { city } = req.params;
+    const rooms = await Room.find({ forr: "pg", status: true, city: city });
     res.status(200).json({
       success: true,
       rooms,
@@ -91,7 +101,12 @@ export const pg = async (req, res, next) => {
 };
 export const hostles = async (req, res, next) => {
   try {
-    const rooms = await Room.find({ forr: "hostles", status: true });
+    const { city } = req.params;
+    const rooms = await Room.find({
+      forr: "hostles",
+      status: true,
+      city: city,
+    });
     res.status(200).json({
       success: true,
       rooms,

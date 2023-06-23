@@ -16,11 +16,11 @@ import {
 
 const taskrouter = express.Router();
 
-taskrouter.get("/boys", boys);
-taskrouter.get("/girls", girls);
-taskrouter.get("/pg", pg);
-taskrouter.get("/everyone", everyone);
-taskrouter.get("/hostles", hostles);
+taskrouter.get("/boys/:city", boys);
+taskrouter.get("/girls/:city", girls);
+taskrouter.get("/pg/:city", pg);
+taskrouter.get("/everyone/:city", everyone);
+taskrouter.get("/hostles/:city", hostles);
 taskrouter.get("/all", isAuthenticated, all);
 taskrouter.post("/add",isAuthenticated, add);
 taskrouter.put("/update/:id", isAuthenticated, update);
