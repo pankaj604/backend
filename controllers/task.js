@@ -5,7 +5,7 @@ import jwt from "jsonwebtoken";
 import fs from "fs";
 import path from "path";
 import { v2 as cloudinary } from "cloudinary";
-
+import { Shop } from "../models/shop.js";
 cloudinary.config({
   cloud_name: "dvgumv3vu",
   api_key: "687748563923649",
@@ -38,9 +38,12 @@ export const add = async (req, res, next) => {
   }
 };
 
+
+
 export const boys = async (req, res, next) => {
   try {
     const { city } = req.params;
+
     const rooms = await Room.find({
       $or: [{ forr: "boys" }, { forr: "everyone" }],
       status: true,
@@ -55,6 +58,7 @@ export const boys = async (req, res, next) => {
     next(error);
   }
 };
+
 export const girls = async (req, res, next) => {
   try {
     const { city } = req.params;
@@ -166,6 +170,7 @@ export const update = async (req, res, next) => {
   }
 };
 
+
 export const mydata = async (req, res, next) => {
   try {
     const id = req.user._id;
@@ -180,3 +185,4 @@ export const mydata = async (req, res, next) => {
     next(error);
   }
 };
+
