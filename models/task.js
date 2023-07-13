@@ -6,6 +6,9 @@ const roomSchema = new mongoose.Schema({
   forr: "string",
   address: "string",
   mobile: "string",
+  facilities: "string",
+  size: "string",
+
   user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
@@ -14,8 +17,7 @@ const roomSchema = new mongoose.Schema({
     type: Boolean,
     default: true,
   },
-  image : "string"
-
+  image: "string",
 });
 
 export const Room = mongoose.model("Room", roomSchema);

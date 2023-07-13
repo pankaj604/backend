@@ -102,7 +102,7 @@ export const forget = async (req, res) => {
         pass: "pankaj6pack",
       },
     });
-    console.log(email);
+
     const mailOptions = {
       from: "pankajkewat04@outlook.com",
       to: email,
@@ -126,18 +126,18 @@ export const forget = async (req, res) => {
     res.status(500).json({ message: "Server error" });
   }
 };
-export const reset =async (req,res) => {
+export const reset = async (req, res) => {
   const { email, otp, newPassword } = req.body;
 
   try {
     const user = await User.findOne({ email });
 
     if (!user) {
-      return  res.json({ message: 'user not available' });
+      return res.json({ message: "user not available" });
     }
 
     if (otp !== user.resetOtp || Date.now() > user.resetOtpExpiry) {
-      return  res.status(500).json({ message: 'otp expired or wrong' });
+      return res.status(500).json({ message: "otp expired or wrong" });
     }
     const hashedPassword = await bcrypt.hash(newPassword, 10);
     // Update the user's password
@@ -147,10 +147,10 @@ export const reset =async (req,res) => {
 
     await user.save();
 
-    res.json({ message: 'Password reset successful' });
+    res.json({ message: "Password reset successful" });
   } catch (error) {
     console.log(error);
-    res.status(500).json({ message: 'Server error' });
+    res.status(500).json({ message: "Server error" });
   }
 };
 

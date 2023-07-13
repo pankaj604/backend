@@ -17,16 +17,18 @@ export const add = async (req, res, next) => {
     cloudinary.uploader.upload(file.tempFilePath, async (err, result) => {
       const image = result.url;
 
-      const { city, rent, forr, address, mobile } = req.body;
+      const { city, rent, forr, address, mobile ,facilities,size } = req.body;
       const user = req.user;
       const room = await Room.create({
         city,
         rent,
         forr,
         address,
-        mobile,
+        mobile, 
         user,
         image,
+        facilities, 
+        size,
       });
       return res.status(200).json({
         success: true,
