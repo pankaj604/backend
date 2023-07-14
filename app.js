@@ -39,7 +39,7 @@ app.use("/v1/shop", shoprouter);
 app.use("/v1/hostel", hostelrouter);
 
 app.get("/", (req, res) => {
-  res.sendFile('index.html', { root: "./build" });
+  res.sendFile('/build/index.html');
 });
 app.use(errorMiddleware);
 // app.set("view engine", "ejs");
