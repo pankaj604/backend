@@ -26,7 +26,7 @@ app.use(
     origin: ["http://localhost:3000", "http://localhost:1369","https://hsrooms-backend.onrender.com"],
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
-  })
+  }) 
 );
 
 app.use(express.urlencoded());
