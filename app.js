@@ -23,7 +23,7 @@ config({
 
 app.use(
   cors({
-    origin: ["http://localhost:3000", "https://hsrooms-backend.onrender.com"],
+    origin: ["http://localhost:3000", "http://localhost:1369","https://hsrooms-backend.onrender.com"],
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
   })
@@ -32,7 +32,7 @@ app.use(
 app.use(express.urlencoded());
 app.use(express.json());
 app.use(cookieParser());
-app.use('build',express.static('build'));
+app.use("/static", express.static('build/static'))
 app.use("/v1/user", router);
 app.use("/v1/room", taskrouter);
 app.use("/v1/shop", shoprouter);
