@@ -99,7 +99,7 @@ export const forget = async (req, res) => {
       secure: false,
       auth: {
         user: "pankajkewat04@outlook.com",
-        pass: "pankaj6pack",
+        pass: "pankaj1cr",
       },
     });
 
