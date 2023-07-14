@@ -8,6 +8,7 @@ import shoprouter from "./routes/shop.js";
 import fileUpload from "express-fileupload";
 import cors from "cors";
 import hostelrouter from "./routes/hostel.js";
+import path from "path";
 export const app = express();
 
 app.use(
@@ -31,17 +32,14 @@ app.use(
 app.use(express.urlencoded());
 app.use(express.json());
 app.use(cookieParser());
-
+app.use(express.static(path.join("/", 'build')));
 app.use("/v1/user", router);
 app.use("/v1/room", taskrouter);
 app.use("/v1/shop", shoprouter);
 app.use("/v1/hostel", hostelrouter);
 
 app.get("/", (req, res) => {
-  res.json({
-    success: true,
-    massage: "hello pankaj",
-  });
+  res.sendFile(path.join("/", 'build', 'index.html'));
 });
 app.use(errorMiddleware);
 // app.set("view engine", "ejs");
