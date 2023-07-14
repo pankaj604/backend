@@ -23,7 +23,7 @@ config({
 
 app.use(
   cors({
-    origin: ["http://localhost:3000","https://hsrooms-backend.onrender.com"],
+    origin: ["http://localhost:3000", "https://hsrooms-backend.onrender.com"],
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
   })
@@ -32,14 +32,14 @@ app.use(
 app.use(express.urlencoded());
 app.use(express.json());
 app.use(cookieParser());
-app.use(express.static(path.join("/", 'build')));
+app.use('build',express.static('build'));
 app.use("/v1/user", router);
 app.use("/v1/room", taskrouter);
 app.use("/v1/shop", shoprouter);
 app.use("/v1/hostel", hostelrouter);
 
 app.get("/", (req, res) => {
-  res.sendFile('index.html', { root: "./build" });
+  res.sendFile(path.resolve("build", "index.html"));
 });
 app.use(errorMiddleware);
 // app.set("view engine", "ejs");
