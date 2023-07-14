@@ -8,8 +8,8 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": " set NODE_ENV=Production&& nodemon server.js",
-    "dev": " set NODE_ENV=Development&& nodemon server.js"
+    "start": " nodemon server.js",
+    "dev": " nodemon server.js"
   },
   "author": "",
   "license": "ISC",
