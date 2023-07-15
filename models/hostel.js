@@ -21,6 +21,10 @@ const HostelSchema = new mongoose.Schema({
     default: true,
   },
   image: "string",
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  },
 });
 
 export const Hostel = mongoose.model("Hostel", HostelSchema);

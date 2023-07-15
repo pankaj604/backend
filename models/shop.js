@@ -18,6 +18,10 @@ const shopSchema = new mongoose.Schema({
     default: true,
   },
   image: "string",
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  },
 });
 
 export const Shop = mongoose.model("Shop", shopSchema);

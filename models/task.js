@@ -18,6 +18,10 @@ const roomSchema = new mongoose.Schema({
     default: true,
   },
   image: "string",
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  },
 });
 
 export const Room = mongoose.model("Room", roomSchema);

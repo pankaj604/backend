@@ -90,7 +90,7 @@ export const shopupdate = async (req, res, next) => {
       const shops = await Shop.find({
         status: true,
         city: city,
-      });
+      }).sort({ createdAt: -1 });
   
       res.status(200).json({
         success: true,

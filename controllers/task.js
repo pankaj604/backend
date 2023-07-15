@@ -16,7 +16,7 @@ export const add = async (req, res, next) => {
     const file = req.files.image;
     cloudinary.uploader.upload(file.tempFilePath, async (err, result) => {
       const image = result.url;
-
+ 
       const { city, rent, forr, address, mobile ,facilities,size } = req.body;
       const user = req.user;
       const room = await Room.create({
@@ -50,7 +50,7 @@ export const boys = async (req, res, next) => {
       $or: [{ forr: "boys" }, { forr: "everyone" }],
       status: true,
       city: city,
-    });
+    }).sort({ createdAt: -1 });
 
     res.status(200).json({
       success: true,
@@ -68,7 +68,7 @@ export const girls = async (req, res, next) => {
       $or: [{ forr: "girls" }, { forr: "everyone" }],
       status: true,
       city: city,
-    });
+    }).sort({ createdAt: -1 });
     res.status(200).json({
       success: true,
       rooms,
@@ -84,7 +84,7 @@ export const everyone = async (req, res, next) => {
       forr: "everyone",
       status: true,
       city: city,
-    });
+    }).sort({ createdAt: -1 });
     res.status(200).json({
       success: true,
       rooms,
@@ -96,11 +96,11 @@ export const everyone = async (req, res, next) => {
 export const pg = async (req, res, next) => {
   try {
     const { city } = req.params;
-    const rooms = await Room.find({ forr: "pg", status: true, city: city });
+    const rooms = await Room.find({ forr: "pg", status: true, city: city }).sort({ createdAt: -1});
     res.status(200).json({
       success: true,
       rooms,
-    });
+    })
   } catch (error) {
     next(error);
   }
@@ -112,11 +112,11 @@ export const hostles = async (req, res, next) => {
       forr: "hostles",
       status: true,
       city: city,
-    });
+    }).sort({ createdAt: -1 });
     res.status(200).json({
       success: true,
       rooms,
-    });
+    })
   } catch (error) {
     next(error);
   }

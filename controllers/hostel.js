@@ -89,7 +89,7 @@ export const hostels = async (req, res, next) => {
     const hostels = await Hostel.find({
       status: true,
       city: city,
-    });
+    }).sort({ createdAt: -1 });
 
     res.status(200).json({
       success: true,
