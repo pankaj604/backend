@@ -1,6 +1,6 @@
 import express from "express";
 
-import { isAuthenticated } from "../utils/auth.js";
+import { isAuthenticated, logstatus } from "../utils/auth.js";
 
 import {
   getallusers,
@@ -22,6 +22,7 @@ router.get("/logout", logout);
 router.get("/all", getallusers);
 
 router.get("/me", isAuthenticated, mydetails);
+router.get("/check", logstatus);
 router.post("/forget", forget);
 router.post("/reset", reset);
 
