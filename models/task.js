@@ -15,7 +15,11 @@ const roomSchema = new mongoose.Schema({
   },
   status: {
     type: Boolean,
-    default: true,
+    default: false,
+  },
+  isApproved: {
+    type: Boolean,
+    default: false,
   },
   image: "string",
   createdAt: {

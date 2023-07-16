@@ -96,7 +96,7 @@ export const everyone = async (req, res, next) => {
 export const pg = async (req, res, next) => {
   try {
     const { city } = req.params;
-    const rooms = await Room.find({ forr: "pg", status: true, city: city }).sort({ createdAt: -1});
+    const rooms = await Room.find({ forr: "pg", status: true,  city: city }).sort({ createdAt: -1});
     res.status(200).json({
       success: true,
       rooms,
@@ -127,7 +127,8 @@ export const hostles = async (req, res, next) => {
 
 export const all = async (req, res, next) => {
   try {
-    const rooms = await Room.find({});
+    const rooms = await Room.find({}).sort({ createdAt: -1 });
+    
     res.status(200).json({
       success: true,
       massage: "all rooms received",
@@ -142,9 +143,10 @@ export const delet = async (req, res, next) => {
   try {
     const { id } = req.params;
     const room = await Room.findById(id);
-
+      const delImg = room.image
     await room.deleteOne();
-    console.log(room);
+   
+    await deleteImage(delImg)
     res.status(200).json({
       success: true,
       massage: "room deleted",
@@ -172,11 +174,29 @@ export const update = async (req, res, next) => {
   }
 };
 
+export const updateAproved = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const room = await Room.findById(id);
+
+    room.isApproved = !room.isApproved;
+    room.save();
+
+    res.status(200).json({
+      success: true,
+      massage: "room updated",
+      room,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 
 export const mydata = async (req, res, next) => {
   try {
     const id = req.user._id;
-    const room = await Room.find({ user: id });
+    const room = await Room.find({ user: id }).sort({ createdAt: -1 });
 
     res.status(200).json({
       success: true,
@@ -188,3 +208,22 @@ export const mydata = async (req, res, next) => {
   }
 };
 
+async function deleteImage (imageUrl) {
+  try {
+    console.log(imageUrl)
+    const publicId = extractPublicId(imageUrl);
+    console.log(publicId)
+    const response = await cloudinary.uploader.destroy(publicId);
+    console.log('Image deleted successfully:', response);
+    // Handle successful deletion here
+  } catch (error) {
+    console.log('Error deleting image:', error);
+    // Handle error here
+  }
+};
+
+const extractPublicId = (imageUrl) => {
+  const regex = /\/v\d+\/(.*?)\./;
+  const match = imageUrl.match(regex);
+  return match && match[1];
+};

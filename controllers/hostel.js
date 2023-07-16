@@ -54,11 +54,24 @@ export const addhostel = async (req, res, next) => {
 export const myhostel = async (req, res, next) => {
   try {
     const id = req.user._id;
-    const hostel = await Hostel.find({ user: id });
+    const hostel = await Hostel.find({ user: id }).sort({ createdAt: -1 });
 
     res.status(200).json({
       success: true,
       massage: "your hostels",
+      hostel,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+export const allhostel = async (req, res, next) => {
+  try {
+    const hostel = await Hostel.find({}).sort({ createdAt: -1 });
+
+    res.status(200).json({
+      success: true,
+      massage: "all rooms received",
       hostel,
     });
   } catch (error) {
@@ -107,6 +120,22 @@ export const hostelupdate = async (req, res, next) => {
     const hostel = await Hostel.findById(id);
 
     hostel.status = !hostel.status;
+    hostel.save();
+
+    res.status(200).json({
+      success: true,
+      massage: "hostel updated",
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+export const hostelaprovel = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const hostel = await Hostel.findById(id);
+
+    hostel.isApproved = !hostel.isApproved;
     hostel.save();
 
     res.status(200).json({

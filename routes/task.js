@@ -13,6 +13,7 @@ import {
   update,
   mydata,
   everyone,
+  updateAproved,
 } from "../controllers/task.js";
 
 const taskrouter = express.Router();
@@ -23,9 +24,10 @@ taskrouter.get("/pg/:city", pg);
 
 taskrouter.get("/everyone/:city", everyone);
 taskrouter.get("/hostles/:city", hostles);
-taskrouter.get("/all", isAuthenticated, all);
+taskrouter.get("/all", all);
 taskrouter.post("/add", isAuthenticated, add);
 taskrouter.put("/update/:id", isAuthenticated, update);
+taskrouter.put("/aprovedRoom/:id", updateAproved);
 taskrouter.delete("/delet/:id", isAuthenticated, delet);
 taskrouter.get("/myrooms", isAuthenticated, mydata);
 

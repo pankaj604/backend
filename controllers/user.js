@@ -64,7 +64,8 @@ export const logout = (req, res, next) => {
       httpOnly: true,
       expires: new Date(Date.now()),
     });
-    res.json({
+    res.json({ 
+      
       success: false,
       massage: "logout succesfully",
     });

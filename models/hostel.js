@@ -11,14 +11,18 @@ const HostelSchema = new mongoose.Schema({
   totalseats: "string",
   gatetime: "string",
   facilites: "string",
- 
+
   user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
   },
   status: {
     type: Boolean,
-    default: true,
+    default: false,
+  },
+  isApproved: {
+    type: Boolean,
+    default: false,
   },
   image: "string",
   createdAt: {
