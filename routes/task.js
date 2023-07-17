@@ -24,10 +24,10 @@ taskrouter.get("/pg/:city", pg);
 
 taskrouter.get("/everyone/:city", everyone);
 taskrouter.get("/hostles/:city", hostles);
-taskrouter.get("/all", all);
+taskrouter.get("/all",isAuthenticated, all);
 taskrouter.post("/add", isAuthenticated, add);
 taskrouter.put("/update/:id", isAuthenticated, update);
-taskrouter.put("/aprovedRoom/:id", updateAproved);
+taskrouter.put("/aprovedRoom/:id",isAuthenticated, updateAproved);
 taskrouter.delete("/delet/:id", isAuthenticated, delet);
 taskrouter.get("/myrooms", isAuthenticated, mydata);
 

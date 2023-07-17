@@ -6,9 +6,9 @@ const shoprouter = express.Router();
 
 shoprouter.get("/my",isAuthenticated, myshop);
 shoprouter.post("/addshop", isAuthenticated, addshop);
-shoprouter.get("/all", allshop);
+shoprouter.get("/all",isAuthenticated, allshop);
 shoprouter.put("/update/:id",isAuthenticated, shopupdate);
-shoprouter.put("/approveShop/:id", shopaprovel);
+shoprouter.put("/approveShop/:id",isAuthenticated, shopaprovel);
 shoprouter.delete("/delet/:id",isAuthenticated, sopdelet);
 shoprouter.get("/:city", shops);
 

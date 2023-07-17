@@ -7,9 +7,9 @@ const hostelrouter = express.Router();
 
 hostelrouter.post("/add",isAuthenticated,addhostel)
 hostelrouter.get("/myhostel",isAuthenticated,myhostel)
-hostelrouter.get("/all",allhostel)
+hostelrouter.get("/all",isAuthenticated,allhostel)
 hostelrouter.put("/update/:id",isAuthenticated,hostelupdate)
-hostelrouter.put("/approveHostel/:id",hostelaprovel)
+hostelrouter.put("/approveHostel/:id",isAuthenticated,hostelaprovel)
 hostelrouter.delete("/delete/:id",isAuthenticated,hosteldelete)
 hostelrouter.get("/hostels/:city",hostels)
 

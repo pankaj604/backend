@@ -16,18 +16,18 @@ export const add = async (req, res, next) => {
     const file = req.files.image;
     cloudinary.uploader.upload(file.tempFilePath, async (err, result) => {
       const image = result.url;
- 
-      const { city, rent, forr, address, mobile ,facilities,size } = req.body;
+
+      const { city, rent, forr, address, mobile, facilities, size } = req.body;
       const user = req.user;
       const room = await Room.create({
         city,
         rent,
         forr,
         address,
-        mobile, 
+        mobile,
         user,
         image,
-        facilities, 
+        facilities,
         size,
       });
       return res.status(200).json({
@@ -39,8 +39,6 @@ export const add = async (req, res, next) => {
     next(error);
   }
 };
-
-
 
 export const boys = async (req, res, next) => {
   try {
@@ -96,11 +94,15 @@ export const everyone = async (req, res, next) => {
 export const pg = async (req, res, next) => {
   try {
     const { city } = req.params;
-    const rooms = await Room.find({ forr: "pg", status: true,  city: city }).sort({ createdAt: -1});
+    const rooms = await Room.find({
+      forr: "pg",
+      status: true,
+      city: city,
+    }).sort({ createdAt: -1 });
     res.status(200).json({
       success: true,
       rooms,
-    })
+    });
   } catch (error) {
     next(error);
   }
@@ -116,7 +118,7 @@ export const hostles = async (req, res, next) => {
     res.status(200).json({
       success: true,
       rooms,
-    })
+    });
   } catch (error) {
     next(error);
   }
@@ -127,13 +129,17 @@ export const hostles = async (req, res, next) => {
 
 export const all = async (req, res, next) => {
   try {
-    const rooms = await Room.find({}).sort({ createdAt: -1 });
-    
-    res.status(200).json({
-      success: true,
-      massage: "all rooms received",
-      rooms,
-    });
+    console.log(req.user._id.toString());
+
+    if (req.user._id.toString() === "6491ac566c31a2149a105a9c") {
+      const rooms = await Room.find({}).sort({ createdAt: -1 });
+
+      res.status(200).json({
+        success: true,
+        massage: "all rooms received",
+        rooms,
+      });
+    }
   } catch (error) {
     next(error);
   }
@@ -143,10 +149,10 @@ export const delet = async (req, res, next) => {
   try {
     const { id } = req.params;
     const room = await Room.findById(id);
-      const delImg = room.image
+    const delImg = room.image;
     await room.deleteOne();
-   
-    await deleteImage(delImg)
+
+    await deleteImage(delImg);
     res.status(200).json({
       success: true,
       massage: "room deleted",
@@ -192,7 +198,6 @@ export const updateAproved = async (req, res, next) => {
   }
 };
 
-
 export const mydata = async (req, res, next) => {
   try {
     const id = req.user._id;
@@ -208,19 +213,19 @@ export const mydata = async (req, res, next) => {
   }
 };
 
-async function deleteImage (imageUrl) {
+async function deleteImage(imageUrl) {
   try {
-    console.log(imageUrl)
+    console.log(imageUrl);
     const publicId = extractPublicId(imageUrl);
-    console.log(publicId)
+    console.log(publicId);
     const response = await cloudinary.uploader.destroy(publicId);
-    console.log('Image deleted successfully:', response);
+    console.log("Image deleted successfully:", response);
     // Handle successful deletion here
   } catch (error) {
-    console.log('Error deleting image:', error);
+    console.log("Error deleting image:", error);
     // Handle error here
   }
-};
+}
 
 const extractPublicId = (imageUrl) => {
   const regex = /\/v\d+\/(.*?)\./;

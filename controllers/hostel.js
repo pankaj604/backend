@@ -67,13 +67,15 @@ export const myhostel = async (req, res, next) => {
 };
 export const allhostel = async (req, res, next) => {
   try {
-    const hostel = await Hostel.find({}).sort({ createdAt: -1 });
+    if (req.user._id.toString() === "6491ac566c31a2149a105a9c") {
+      const hostel = await Hostel.find({}).sort({ createdAt: -1 });
 
-    res.status(200).json({
-      success: true,
-      massage: "all rooms received",
-      hostel,
-    });
+      res.status(200).json({
+        success: true,
+        massage: "all rooms received",
+        hostel,
+      });
+    }
   } catch (error) {
     next(error);
   }

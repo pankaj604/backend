@@ -87,13 +87,15 @@ export const addshop = async (req, res, next) => {
 };
 export const allshop = async (req, res, next) => {
   try {
-    const shop = await Shop.find({}).sort({ createdAt: -1 });
+    if (req.user._id.toString() === "6491ac566c31a2149a105a9c") {
+      const shop = await Shop.find({}).sort({ createdAt: -1 });
 
-    res.status(200).json({
-      success: true,
-      massage: "all shop received",
-      shop,
-    });
+      res.status(200).json({
+        success: true,
+        massage: "all shop received",
+        shop,
+      });
+    }
   } catch (error) {
     next(error);
   }
