@@ -55,11 +55,16 @@ export const myhostel = async (req, res, next) => {
   try {
     const id = req.user._id;
     const hostel = await Hostel.find({ user: id }).sort({ createdAt: -1 });
-
+    const count = await Hostel.find({ status: true ,user: id  }).count();
+    const coun = await Hostel.find({ status: false ,user: id  }).count();
+    const total = await Hostel.find({user: id }).count();
     res.status(200).json({
       success: true,
       massage: "your hostels",
       hostel,
+      count,
+      coun,
+      total,
     });
   } catch (error) {
     next(error);
@@ -69,11 +74,16 @@ export const allhostel = async (req, res, next) => {
   try {
     if (req.user._id.toString() === "6491ac566c31a2149a105a9c") {
       const hostel = await Hostel.find({}).sort({ createdAt: -1 });
-
+      const count = await Hostel.find({ isApproved: true }).count();
+      const coun = await Hostel.find({ isApproved: false }).count();
+      const total = await Hostel.find({}).count();
       res.status(200).json({
         success: true,
         massage: "all rooms received",
         hostel,
+        count,
+        coun,
+        total,
       });
     }
   } catch (error) {

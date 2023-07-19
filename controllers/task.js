@@ -129,15 +129,19 @@ export const hostles = async (req, res, next) => {
 
 export const all = async (req, res, next) => {
   try {
-    console.log(req.user._id.toString());
-
     if (req.user._id.toString() === "6491ac566c31a2149a105a9c") {
       const rooms = await Room.find({}).sort({ createdAt: -1 });
+      const count = await Room.find({ isApproved: true }).count();
+      const coun = await Room.find({ isApproved: false }).count();
+      const total = await Room.find().count();
 
       res.status(200).json({
         success: true,
         massage: "all rooms received",
         rooms,
+        count,
+        coun,
+        total,
       });
     }
   } catch (error) {
@@ -202,11 +206,16 @@ export const mydata = async (req, res, next) => {
   try {
     const id = req.user._id;
     const room = await Room.find({ user: id }).sort({ createdAt: -1 });
-
+    const count = await Room.find({ status: true ,user: id  }).count();
+    const coun = await Room.find({ status: false,user: id  }).count();
+    const total = await Room.find({user: id }).count();
     res.status(200).json({
       success: true,
       massage: "your rooms",
       room,
+      count,
+      coun,
+      total,
     });
   } catch (error) {
     next(error);
