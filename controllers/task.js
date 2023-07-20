@@ -131,8 +131,8 @@ export const all = async (req, res, next) => {
   try {
     if (req.user._id.toString() === "6491ac566c31a2149a105a9c") {
       const rooms = await Room.find({}).sort({ createdAt: -1 });
-      const count = await Room.find({ isApproved: true }).count();
-      const coun = await Room.find({ isApproved: false }).count();
+      const count = await Room.find({ isApproved: true }).countDocuments();
+      const coun = await Room.find({ isApproved: false }).countDocuments();
       const total = await Room.find().count();
 
       res.status(200).json({

@@ -74,8 +74,8 @@ export const allhostel = async (req, res, next) => {
   try {
     if (req.user._id.toString() === "6491ac566c31a2149a105a9c") {
       const hostel = await Hostel.find({}).sort({ createdAt: -1 });
-      const count = await Hostel.find({ isApproved: true }).count();
-      const coun = await Hostel.find({ isApproved: false }).count();
+      const count = await Hostel.find({ isApproved: true }).countDocuments();
+      const coun = await Hostel.find({ isApproved: false }).countDocuments();
       const total = await Hostel.find({}).count();
       res.status(200).json({
         success: true,
