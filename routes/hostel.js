@@ -11,7 +11,7 @@ hostelrouter.get("/all",isAuthenticated,allhostel)
 hostelrouter.put("/update/:id",isAuthenticated,hostelupdate)
 hostelrouter.put("/approveHostel/:id",isAuthenticated,hostelaprovel)
 hostelrouter.delete("/delete/:id",isAuthenticated,hosteldelete)
-hostelrouter.get("/hostels/:city",hostels)
+hostelrouter.post("/hostels",hostels)
 
 hostelrouter.put("/updateseat/:id",isAuthenticated,updateseat)
 

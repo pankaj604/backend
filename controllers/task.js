@@ -224,11 +224,11 @@ export const mydata = async (req, res, next) => {
 
 async function deleteImage(imageUrl) {
   try {
-    console.log(imageUrl);
+   
     const publicId = extractPublicId(imageUrl);
-    console.log(publicId);
+   
     const response = await cloudinary.uploader.destroy(publicId);
-    console.log("Image deleted successfully:", response);
+  
     // Handle successful deletion here
   } catch (error) {
     console.log("Error deleting image:", error);

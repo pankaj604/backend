@@ -11,6 +11,7 @@ const HostelSchema = new mongoose.Schema({
   totalseats: "string",
   gatetime: "string",
   facilites: "string",
+  hostelfor : "string",
 
   user: {
     type: mongoose.Schema.Types.ObjectId,

@@ -23,6 +23,7 @@ export const addhostel = async (req, res, next) => {
         totalseats,
         gatetime,
         facilites,
+        hostelfor
       } = req.body;
       const user = req.user;
 
@@ -39,6 +40,7 @@ export const addhostel = async (req, res, next) => {
         facilites,
         image,
         user,
+        hostelfor
       });
       return res.status(200).json({
         success: true,
@@ -49,7 +51,7 @@ export const addhostel = async (req, res, next) => {
     next(error);
   }
 };
-
+  
 //
 export const myhostel = async (req, res, next) => {
   try {
@@ -60,7 +62,7 @@ export const myhostel = async (req, res, next) => {
     const total = await Hostel.find({user: id }).count();
     res.status(200).json({
       success: true,
-      massage: "your hostels",
+      massage: "your hostels", 
       hostel,
       count,
       coun,
@@ -110,12 +112,14 @@ export const updateseat = async (req, res, next) => {
 
 export const hostels = async (req, res, next) => {
   try {
-    const { city } = req.params;
+   const {city ,id} = req.body;
+   
     const hostels = await Hostel.find({
       status: true,
       city: city,
+      hostelfor : id
     }).sort({ createdAt: -1 });
-
+    console.log(hostels)
     res.status(200).json({
       success: true,
       massage: " hostel get succesful",
