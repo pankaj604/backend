@@ -119,7 +119,7 @@ export const hostels = async (req, res, next) => {
       city: city,
       hostelfor : id
     }).sort({ createdAt: -1 });
-    console.log(hostels)
+
     res.status(200).json({
       success: true,
       massage: " hostel get succesful",
