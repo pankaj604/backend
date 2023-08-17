@@ -22,7 +22,7 @@ export const logstatus = async (req, res, next) => {
     return res.json({
       success: false,
       massage: "login first",
-    });
+    }); 
   }
   const decode = jwt.verify(token, process.env.JWTSECRET);
   req.user = await User.findById(decode._id);
