@@ -17,7 +17,8 @@ export const add = async (req, res, next) => {
     cloudinary.uploader.upload(file.tempFilePath, async (err, result) => {
       const image = result.url;
 
-      const { city, rent, forr, address, mobile, facilities, size } = req.body;
+      const { city, rent, forr, address, mobile, facilities, size , food } = req.body;
+ 
       const user = req.user;
       const room = await Room.create({
         city,
@@ -29,6 +30,7 @@ export const add = async (req, res, next) => {
         image,
         facilities,
         size,
+        food
       });
       return res.status(200).json({
         success: true,
@@ -93,9 +95,10 @@ export const everyone = async (req, res, next) => {
 };
 export const pg = async (req, res, next) => {
   try {
-    const { city } = req.params;
+    const { city, id } = req.body;
+
     const rooms = await Room.find({
-      forr: "pg",
+      forr: id,
       status: true,
       city: city,
     }).sort({ createdAt: -1 });
@@ -206,9 +209,9 @@ export const mydata = async (req, res, next) => {
   try {
     const id = req.user._id;
     const room = await Room.find({ user: id }).sort({ createdAt: -1 });
-    const count = await Room.find({ status: true ,user: id  }).count();
-    const coun = await Room.find({ status: false,user: id  }).count();
-    const total = await Room.find({user: id }).count();
+    const count = await Room.find({ status: true, user: id }).count();
+    const coun = await Room.find({ status: false, user: id }).count();
+    const total = await Room.find({ user: id }).count();
     res.status(200).json({
       success: true,
       massage: "your rooms",
@@ -224,11 +227,10 @@ export const mydata = async (req, res, next) => {
 
 async function deleteImage(imageUrl) {
   try {
-   
     const publicId = extractPublicId(imageUrl);
-   
+
     const response = await cloudinary.uploader.destroy(publicId);
-  
+
     // Handle successful deletion here
   } catch (error) {
     console.log("Error deleting image:", error);

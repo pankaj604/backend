@@ -20,7 +20,7 @@ const taskrouter = express.Router();
 
 taskrouter.get("/boys/:city", boys);
 taskrouter.get("/girls/:city", girls);
-taskrouter.get("/pg/:city", pg);
+taskrouter.post("/pg", pg);
 
 taskrouter.get("/everyone/:city", everyone);
 taskrouter.get("/hostles/:city", hostles);

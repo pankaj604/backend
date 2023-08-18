@@ -8,6 +8,7 @@ const roomSchema = new mongoose.Schema({
   mobile: "string",
   facilities: "string",
   size: "string",
+  food: "string",
 
   user: {
     type: mongoose.Schema.Types.ObjectId,
