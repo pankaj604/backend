@@ -17,8 +17,9 @@ export const add = async (req, res, next) => {
     cloudinary.uploader.upload(file.tempFilePath, async (err, result) => {
       const image = result.url;
 
-      const { city, rent, forr, address, mobile, facilities, size , food } = req.body;
- 
+      const { city, rent, forr, address, mobile, facilities, size, food } =
+        req.body;
+
       const user = req.user;
       const room = await Room.create({
         city,
@@ -30,7 +31,7 @@ export const add = async (req, res, next) => {
         image,
         facilities,
         size,
-        food
+        food,
       });
       return res.status(200).json({
         success: true,
@@ -184,8 +185,29 @@ export const update = async (req, res, next) => {
     });
   } catch (error) {
     next(error);
+  } 
+};
+//
+export const updatedate = async (req, res, next) => {
+  try {
+    const { id, selectedDate, daysLeft } = req.body;
+    const room = await Room.findById(id);
+    console.log(id);
+
+    room.date = selectedDate;
+    room.days = daysLeft;
+    room.save();
+
+    res.status(200).json({
+      success: true,
+      massage: "date updated",
+      room,
+    });
+  } catch (error) {
+    next(error);
   }
 };
+//
 
 export const updateAproved = async (req, res, next) => {
   try {

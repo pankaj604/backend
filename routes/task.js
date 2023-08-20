@@ -14,6 +14,7 @@ import {
   mydata,
   everyone,
   updateAproved,
+  updatedate,
 } from "../controllers/task.js";
 
 const taskrouter = express.Router();
@@ -27,6 +28,7 @@ taskrouter.get("/hostles/:city", hostles);
 taskrouter.get("/all",isAuthenticated, all);
 taskrouter.post("/add", isAuthenticated, add);
 taskrouter.put("/update/:id", isAuthenticated, update);
+taskrouter.post("/updatedate", isAuthenticated, updatedate);
 taskrouter.put("/aprovedRoom/:id",isAuthenticated, updateAproved);
 taskrouter.delete("/delet/:id", isAuthenticated, delet);
 taskrouter.get("/myrooms", isAuthenticated, mydata);

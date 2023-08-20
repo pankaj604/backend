@@ -17,13 +17,37 @@ export const shopupdate = async (req, res, next) => {
 
     res.status(200).json({
       success: true,
-      massage: "room updated",
+      massage: "Shop updated",
       shop,
     });
   } catch (error) {
     next(error);
   }
 };
+//
+
+export const updatedateshop = async (req, res, next) => {
+  try {
+    const { id, selectedDate, daysLeft } = req.body;
+    const shop = await Shop.findById(id);
+    console.log(id);
+
+    shop.date = selectedDate;
+    shop.days = daysLeft;
+    shop.save();
+
+    res.status(200).json({
+      success: true,
+      massage: "date updated for shop ",
+      
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+
+//
 export const shopaprovel = async (req, res, next) => {
   try {
     const { id } = req.params;

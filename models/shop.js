@@ -7,6 +7,9 @@ const shopSchema = new mongoose.Schema({
   mobile: "string",
   area: "string",
   nearby: "string",
+  date : "string",
+  days : "string",
+  
 
   size: "string",
   user: {

@@ -51,6 +51,28 @@ export const addhostel = async (req, res, next) => {
     next(error);
   }
 };
+//
+export const updatedatehostel = async (req, res, next) => {
+  try {
+    const { id, selectedDate, daysLeft } = req.body;
+    const hostel = await Hostel.findById(id);
+    console.log(id);
+
+    hostel.date = selectedDate;
+    hostel.days = daysLeft;
+    hostel.save();
+
+    res.status(200).json({
+      success: true,
+      massage: "date updated of hostel  ",
+      
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+//
+
   
 //
 export const myhostel = async (req, res, next) => {

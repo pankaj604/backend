@@ -9,6 +9,8 @@ const roomSchema = new mongoose.Schema({
   facilities: "string",
   size: "string",
   food: "string",
+  date : "string",
+  days : "string",
 
   user: {
     type: mongoose.Schema.Types.ObjectId,
