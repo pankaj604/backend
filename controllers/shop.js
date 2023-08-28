@@ -30,7 +30,6 @@ export const updatedateshop = async (req, res, next) => {
   try {
     const { id, selectedDate, daysLeft } = req.body;
     const shop = await Shop.findById(id);
-    console.log(id);
 
     shop.date = selectedDate;
     shop.days = daysLeft;
@@ -39,13 +38,11 @@ export const updatedateshop = async (req, res, next) => {
     res.status(200).json({
       success: true,
       massage: "date updated for shop ",
-      
     });
   } catch (error) {
     next(error);
   }
 };
-
 
 //
 export const shopaprovel = async (req, res, next) => {
@@ -81,34 +78,46 @@ export const sopdelet = async (req, res, next) => {
     next(error);
   }
 };
+//
+
 export const addshop = async (req, res, next) => {
   try {
     const file = req.files.image;
-    cloudinary.uploader.upload(file.tempFilePath, async (err, result) => {
+    const file2 = req.files.image2;
+   await  cloudinary.uploader.upload(file.tempFilePath, async (err, result) => {
       const image = result.url;
+      global.image = result.url;
+    });
+    await  cloudinary.uploader.upload(file2.tempFilePath, async (err, result) => {
+      const image = result.url;
+      global.image2 = result.url;
+    });
 
-      const { city, size, area, nearby, rent, mobile, address } = req.body;
-      const user = req.user;
-      const room = await Shop.create({
-        city,
-        size,
-        area,
-        nearby,
-        rent,
-        mobile,
-        address,
-        image,
-        user,
-      });
-      return res.status(200).json({
-        success: true,
-        massage: "Shop added succesfully",
-      });
+    const { city, size, area, nearby, rent, mobile, address } = req.body;
+    const user = req.user;
+    const room = await Shop.create({
+      city,
+      size,
+      area,
+      nearby,
+      rent,
+      mobile,
+      address,
+      image: global.image,
+      image2: global.image2,
+      user,
+    });
+    return res.status(200).json({
+      success: true,
+      massage: "Shop added succesfully",
     });
   } catch (error) {
     next(error);
   }
 };
+
+//
+
 export const allshop = async (req, res, next) => {
   try {
     if (req.user._id.toString() === "6491ac566c31a2149a105a9c") {

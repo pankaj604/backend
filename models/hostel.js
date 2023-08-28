@@ -28,6 +28,7 @@ const HostelSchema = new mongoose.Schema({
     default: false,
   },
   image: "string",
+  image2: "string",
   createdAt: {
     type: Date,
     default: Date.now,

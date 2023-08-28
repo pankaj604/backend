@@ -12,36 +12,62 @@ cloudinary.config({
   api_secret: "yze_m6R_Pwk_5wvBWROr_TaaxTw",
 });
 export const add = async (req, res, next) => {
+  
   try {
     const file = req.files.image;
-    cloudinary.uploader.upload(file.tempFilePath, async (err, result) => {
-      const image = result.url;
+    const file2 = req.files.image2;
+    const image  =  await cloudinary.uploader.upload(
+      file.tempFilePath,
+      async (err, result) => {
+        global.image =  result.url;
+      }
+    );
+   
+    const image2 = await cloudinary.uploader.upload(
+      file2.tempFilePath,
+      async (err, result) => {
+        global.image2 =  result.url;
+      }
+    );
 
-      const { city, rent, forr, address, mobile, facilities, size, food } =
-        req.body;
+    //
 
-      const user = req.user;
-      const room = await Room.create({
-        city,
-        rent,
-        forr,
-        address,
-        mobile,
-        user,
-        image,
-        facilities,
-        size,
-        food,
-      });
-      return res.status(200).json({
-        success: true,
-        massage: "room added succesfully",
-      });
+    const { city, rent, forr, address, mobile, facilities, size, food } =
+      req.body;
+    const user = req.user;
+    const room = await Room.create({
+      city,
+      rent,
+      forr,
+      address,
+      mobile,
+      user,
+      image : global.image,
+      facilities,
+      size,
+      food,
+      image2 : global.image2,
+    });
+    return res.status(200).json({
+      success: true,
+      massage: "room added succesfully",
     });
   } catch (error) {
     next(error);
   }
 };
+// export const add = async (req, res, next) => {
+//   try {
+//     const file = req.files.image;
+//     const file2 = req.files.image2;
+//     cloudinary.uploader.upload(file.tempFilePath, async (err, result) => {
+//       const image = result.url;
+
+//     });
+//   } catch (error) {
+//     next(error);
+//   }
+// };
 
 export const boys = async (req, res, next) => {
   try {
@@ -185,14 +211,14 @@ export const update = async (req, res, next) => {
     });
   } catch (error) {
     next(error);
-  } 
+  }
 };
 //
 export const updatedate = async (req, res, next) => {
   try {
     const { id, selectedDate, daysLeft } = req.body;
     const room = await Room.findById(id);
-    console.log(id);
+  
 
     room.date = selectedDate;
     room.days = daysLeft;

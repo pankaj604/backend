@@ -9,54 +9,70 @@ cloudinary.config({
 export const addhostel = async (req, res, next) => {
   try {
     const file = req.files.image;
-    cloudinary.uploader.upload(file.tempFilePath, async (err, result) => {
-      const image = result.url;
+    const file2 = req.files.image2;
+    await cloudinary.uploader.upload(file.tempFilePath, async (err, result) => {
+      global.image = result.url;
+    });
+   await  cloudinary.uploader.upload(file2.tempFilePath, async (err, result) => {
+      global.image2 = result.url;
+    });
 
-      const {
-        city,
-        rent,
-        address,
-        mobile,
-        area,
-        nearby,
-        availableseats,
-        totalseats,
-        gatetime,
-        facilites,
-        hostelfor
-      } = req.body;
-      const user = req.user;
-
-      const hostel = await Hostel.create({
-        city,
-        rent,
-        address,
-        mobile,
-        area,
-        nearby,
-        availableseats,
-        totalseats,
-        gatetime,
-        facilites,
-        image,
-        user,
-        hostelfor
-      });
-      return res.status(200).json({
-        success: true,
-        massage: "Hostel added succesfully",
-      });
+    const {
+      city,
+      rent,
+      address,
+      mobile,
+      area,
+      nearby,
+      availableseats,
+      totalseats,
+      gatetime,
+      facilites,
+      hostelfor,
+    } = req.body;
+    const user = req.user;
+    console.log(global.image);
+    console.log(global.image2);
+    const hostel = await Hostel.create({
+      city,
+      rent,
+      address,
+      mobile,
+      area,
+      nearby,
+      availableseats,
+      totalseats,
+      gatetime,
+      facilites,
+      image: global.image,
+      image2: global.image2,
+      user,
+      hostelfor,
+    });
+    return res.status(200).json({
+      success: true,
+      massage: "Hostel added succesfully",
     });
   } catch (error) {
     next(error);
   }
 };
+// export const addhostel = async (req, res, next) => {
+//   try {
+//     const file = req.files.image;
+//     cloudinary.uploader.upload(file.tempFilePath, async (err, result) => {
+//       const image = result.url;
+
+//     });
+//   } catch (error) {
+//     next(error);
+//   }
+// };
 //
 export const updatedatehostel = async (req, res, next) => {
   try {
     const { id, selectedDate, daysLeft } = req.body;
     const hostel = await Hostel.findById(id);
-    console.log(id);
 
     hostel.date = selectedDate;
     hostel.days = daysLeft;
@@ -65,7 +81,6 @@ export const updatedatehostel = async (req, res, next) => {
     res.status(200).json({
       success: true,
       massage: "date updated of hostel  ",
-      
     });
   } catch (error) {
     next(error);
@@ -73,18 +88,17 @@ export const updatedatehostel = async (req, res, next) => {
 };
 //
 
-  
 //
 export const myhostel = async (req, res, next) => {
   try {
     const id = req.user._id;
     const hostel = await Hostel.find({ user: id }).sort({ createdAt: -1 });
-    const count = await Hostel.find({ status: true ,user: id  }).count();
-    const coun = await Hostel.find({ status: false ,user: id  }).count();
-    const total = await Hostel.find({user: id }).count();
+    const count = await Hostel.find({ status: true, user: id }).count();
+    const coun = await Hostel.find({ status: false, user: id }).count();
+    const total = await Hostel.find({ user: id }).count();
     res.status(200).json({
       success: true,
-      massage: "your hostels", 
+      massage: "your hostels",
       hostel,
       count,
       coun,
@@ -134,12 +148,12 @@ export const updateseat = async (req, res, next) => {
 
 export const hostels = async (req, res, next) => {
   try {
-   const {city ,id} = req.body;
-   
+    const { city, id } = req.body;
+
     const hostels = await Hostel.find({
       status: true,
       city: city,
-      hostelfor : id
+      hostelfor: id,
     }).sort({ createdAt: -1 });
 
     res.status(200).json({
