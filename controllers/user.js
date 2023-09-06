@@ -64,8 +64,7 @@ export const logout = (req, res, next) => {
       httpOnly: true,
       expires: new Date(Date.now()),
     });
-    res.json({ 
-      
+    res.json({
       success: false,
       massage: "logout succesfully",
     });
@@ -163,5 +162,42 @@ export const mydetails = async (req, res) => {
     });
   } catch (error) {
     next(error);
+  }
+};
+
+//
+
+// controllers/userController.js
+
+// Route handler to get users with room counts
+export const alluser = async (req, res) => {
+  try {
+    if (req.user._id.toString() === "6491ac566c31a2149a105a9c") {
+      const id = req.body.id;
+
+      const usersWithRoomCounts = await User.aggregate([
+        {
+          $lookup: {
+            from: id,
+            localField: "_id",
+            foreignField: "user",
+            as: "shops",
+          },
+        },
+        {
+          $project: {
+            name: 1,
+            email: 1,
+            roomCount: { $size: "$shops" },
+            for: id,
+          },
+        },
+      ]);
+
+      res.json(usersWithRoomCounts);
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal Server Error" });
   }
 };

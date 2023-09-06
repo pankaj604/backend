@@ -12,21 +12,20 @@ cloudinary.config({
   api_secret: "yze_m6R_Pwk_5wvBWROr_TaaxTw",
 });
 export const add = async (req, res, next) => {
-  
   try {
     const file = req.files.image;
     const file2 = req.files.image2;
-    const image  =  await cloudinary.uploader.upload(
+    const image = await cloudinary.uploader.upload(
       file.tempFilePath,
       async (err, result) => {
-        global.image =  result.url;
+        global.image = result.url;
       }
     );
-   
+
     const image2 = await cloudinary.uploader.upload(
       file2.tempFilePath,
       async (err, result) => {
-        global.image2 =  result.url;
+        global.image2 = result.url;
       }
     );
 
@@ -42,11 +41,11 @@ export const add = async (req, res, next) => {
       address,
       mobile,
       user,
-      image : global.image,
+      image: global.image,
       facilities,
       size,
       food,
-      image2 : global.image2,
+      image2: global.image2,
     });
     return res.status(200).json({
       success: true,
@@ -76,6 +75,7 @@ export const boys = async (req, res, next) => {
     const rooms = await Room.find({
       $or: [{ forr: "boys" }, { forr: "everyone" }],
       status: true,
+      isApproved : true,
       city: city,
     }).sort({ createdAt: -1 });
 
@@ -94,6 +94,7 @@ export const girls = async (req, res, next) => {
     const rooms = await Room.find({
       $or: [{ forr: "girls" }, { forr: "everyone" }],
       status: true,
+      isApproved : true,
       city: city,
     }).sort({ createdAt: -1 });
     res.status(200).json({
@@ -110,6 +111,7 @@ export const everyone = async (req, res, next) => {
     const rooms = await Room.find({
       forr: "everyone",
       status: true,
+      isApproved : true,
       city: city,
     }).sort({ createdAt: -1 });
     res.status(200).json({
@@ -127,6 +129,7 @@ export const pg = async (req, res, next) => {
     const rooms = await Room.find({
       forr: id,
       status: true,
+      isApproved : true,
       city: city,
     }).sort({ createdAt: -1 });
     res.status(200).json({
@@ -143,6 +146,7 @@ export const hostles = async (req, res, next) => {
     const rooms = await Room.find({
       forr: "hostles",
       status: true,
+      isApproved : true,
       city: city,
     }).sort({ createdAt: -1 });
     res.status(200).json({
@@ -218,7 +222,6 @@ export const updatedate = async (req, res, next) => {
   try {
     const { id, selectedDate, daysLeft } = req.body;
     const room = await Room.findById(id);
-  
 
     room.date = selectedDate;
     room.days = daysLeft;
@@ -237,17 +240,19 @@ export const updatedate = async (req, res, next) => {
 
 export const updateAproved = async (req, res, next) => {
   try {
-    const { id } = req.params;
-    const room = await Room.findById(id);
+    if (req.user._id.toString() === "6491ac566c31a2149a105a9c") {
+      const { id } = req.params;
+      const room = await Room.findById(id);
 
-    room.isApproved = !room.isApproved;
-    room.save();
+      room.isApproved = !room.isApproved;
+      room.save();
 
-    res.status(200).json({
-      success: true,
-      massage: "room updated",
-      room,
-    });
+      res.status(200).json({
+        success: true,
+        massage: "room updated",
+        room,
+      });
+    }
   } catch (error) {
     next(error);
   }

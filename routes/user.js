@@ -10,6 +10,7 @@ import {
   mydetails,
   forget,
   reset,
+  alluser
 } from "../controllers/user.js";
 const router = express.Router();
 
@@ -20,6 +21,7 @@ router.post("/login", login);
 router.get("/logout", logout);
 
 router.get("/all", getallusers);
+router.post("/userdata",isAuthenticated , alluser);
 
 router.get("/me", isAuthenticated, mydetails);
 router.get("/check", logstatus);

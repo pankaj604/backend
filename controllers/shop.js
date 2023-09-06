@@ -47,17 +47,19 @@ export const updatedateshop = async (req, res, next) => {
 //
 export const shopaprovel = async (req, res, next) => {
   try {
-    const { id } = req.params;
-    const shop = await Shop.findById(id);
+    if (req.user._id.toString() === "6491ac566c31a2149a105a9c") {
+      const { id } = req.params;
+      const shop = await Shop.findById(id);
 
-    shop.isApproved = !shop.isApproved;
-    shop.save();
+      shop.isApproved = !shop.isApproved;
+      shop.save();
 
-    res.status(200).json({
-      success: true,
-      massage: "room updated",
-      shop,
-    });
+      res.status(200).json({
+        success: true,
+        massage: "room updated",
+        shop,
+      });
+    }
   } catch (error) {
     next(error);
   }
@@ -84,14 +86,17 @@ export const addshop = async (req, res, next) => {
   try {
     const file = req.files.image;
     const file2 = req.files.image2;
-   await  cloudinary.uploader.upload(file.tempFilePath, async (err, result) => {
+    await cloudinary.uploader.upload(file.tempFilePath, async (err, result) => {
       const image = result.url;
       global.image = result.url;
     });
-    await  cloudinary.uploader.upload(file2.tempFilePath, async (err, result) => {
-      const image = result.url;
-      global.image2 = result.url;
-    });
+    await cloudinary.uploader.upload(
+      file2.tempFilePath,
+      async (err, result) => {
+        const image = result.url;
+        global.image2 = result.url;
+      }
+    );
 
     const { city, size, area, nearby, rent, mobile, address } = req.body;
     const user = req.user;
@@ -153,6 +158,7 @@ export const shops = async (req, res, next) => {
     const { city } = req.params;
     const shops = await Shop.find({
       status: true,
+      isApproved : true,
       city: city,
     }).sort({ createdAt: -1 });
 

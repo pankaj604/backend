@@ -13,9 +13,12 @@ export const addhostel = async (req, res, next) => {
     await cloudinary.uploader.upload(file.tempFilePath, async (err, result) => {
       global.image = result.url;
     });
-   await  cloudinary.uploader.upload(file2.tempFilePath, async (err, result) => {
-      global.image2 = result.url;
-    });
+    await cloudinary.uploader.upload(
+      file2.tempFilePath,
+      async (err, result) => {
+        global.image2 = result.url;
+      }
+    );
 
     const {
       city,
@@ -152,6 +155,7 @@ export const hostels = async (req, res, next) => {
 
     const hostels = await Hostel.find({
       status: true,
+      isApproved : true,
       city: city,
       hostelfor: id,
     }).sort({ createdAt: -1 });
@@ -184,16 +188,18 @@ export const hostelupdate = async (req, res, next) => {
 };
 export const hostelaprovel = async (req, res, next) => {
   try {
-    const { id } = req.params;
-    const hostel = await Hostel.findById(id);
+    if (req.user._id.toString() === "6491ac566c31a2149a105a9c") {
+      const { id } = req.params;
+      const hostel = await Hostel.findById(id);
 
-    hostel.isApproved = !hostel.isApproved;
-    hostel.save();
+      hostel.isApproved = !hostel.isApproved;
+      hostel.save();
 
-    res.status(200).json({
-      success: true,
-      massage: "hostel updated",
-    });
+      res.status(200).json({
+        success: true,
+        massage: "hostel updated",
+      });
+    }
   } catch (error) {
     next(error);
   }
