@@ -21,18 +21,18 @@ config({
   path: "./data/config.env",
 });
 
-app.use( 
+app.use(
   cors({
-    origin: ["http://localhost:3000","https://wellroom.in"],
+    origin: ["http://localhost:3000", "https://wellroom.in"],
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
-  }) 
+  })
 );
 
 app.use(express.urlencoded());
 app.use(express.json());
 app.use(cookieParser());
-  app.use("/static", express.static('build/static'))
+app.use("/static", express.static("build/static"));
 app.use("/v1/user", router);
 app.use("/v1/room", taskrouter);
 app.use("/v1/shop", shoprouter);
@@ -41,13 +41,13 @@ app.use("/v1/hostel", hostelrouter);
 app.get("/", (req, res) => {
   res.sendFile(path.resolve("build", "index.html"));
 });
-app.get("/*", (req, res) => {
+app.get("/sitemap.xml", (req, res) => {
   res.sendFile(path.resolve("build", "sitemap.xml"));
+});
+app.get("/*", (req, res) => {
+  res.sendFile(path.resolve("build", "index.html"));
 });
 app.use(errorMiddleware);
 //
-// app.get("/sitemap.xml", (req, res) => {
-//   res.sendFile(path.resolve("build", "sitemap.xml"));
-// });
+
 // app.set("view engine", "ejs");
- 
