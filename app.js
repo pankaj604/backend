@@ -32,8 +32,7 @@ app.use(
 app.use(express.urlencoded());
 app.use(express.json());
 app.use(cookieParser());
-app.use("/static", express.static('build'))
-// app.use("/static", express.static('build/static'))
+app.use("/static", express.static('build/static'))
 app.use("/v1/user", router);
 app.use("/v1/room", taskrouter);
 app.use("/v1/shop", shoprouter);
@@ -43,8 +42,12 @@ app.get("/", (req, res) => {
   res.sendFile(path.resolve("build", "index.html"));
 });
 app.get("/*", (req, res) => {
-  res.sendFile(path.resolve("build", "index.html"));
+  res.sendFile(path.resolve("build", "sitemap.xml"));
 });
 app.use(errorMiddleware);
+//
+// app.get("/sitemap.xml", (req, res) => {
+//   res.sendFile(path.resolve("build", "sitemap.xml"));
+// });
 // app.set("view engine", "ejs");
  
