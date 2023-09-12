@@ -32,7 +32,7 @@ app.use(
 app.use(express.urlencoded());
 app.use(express.json());
 app.use(cookieParser());
-app.use("/static", express.static('build/static'))
+  app.use("/static", express.static('build/static'))
 app.use("/v1/user", router);
 app.use("/v1/room", taskrouter);
 app.use("/v1/shop", shoprouter);
