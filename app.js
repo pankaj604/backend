@@ -67,6 +67,9 @@ app.use("/v1/hostel", hostelrouter);
 app.get("/", (req, res) => {
   res.sendFile(path.resolve("build", "index.html"));
 });
+app.get("/sitemap.xml", (req, res) => {
+  res.sendFile(path.resolve("build", "sitemap.xml"));
+});
 app.get("/*", (req, res) => {
   res.sendFile(path.resolve("build", "index.html"));
 });
