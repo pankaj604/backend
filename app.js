@@ -28,6 +28,19 @@ config({
 //     credentials: true,
 //   })
 // );
+//
+const blockLocalhost = (req, res, next) => {
+  if (req.headers.host && req.headers.host.startsWith('localhost')) {
+    // Reject the request with a forbidden (403) status code
+    return res.status(403).json({ message: 'Access from localhost is not allowed.' });
+  }
+  next();
+};
+
+// Use the middleware to block localhost requests
+app.use(blockLocalhost);
+//
+
 const allowedOrigins = ['https://wellroom.in'];
 
 const corsOptions = {
