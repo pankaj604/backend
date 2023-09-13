@@ -23,7 +23,7 @@ config({
 
 app.use(
   cors({
-    origin: ["http://localhost:3000", "https://wellroom.in"],
+    origin: ["https://wellroom.in"],
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
   })
