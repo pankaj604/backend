@@ -30,7 +30,7 @@ config({
 // );
 //
 const blockLocalhost = (req, res, next) => {
-  if (req.headers.host && req.headers.host.startsWith('localhost')) {
+  if (req.headers.host && req.headers.host.startsWith('http://localhost')) {
     // Reject the request with a forbidden (403) status code
     return res.status(403).json({ message: 'Access from localhost is not allowed.' });
   }
