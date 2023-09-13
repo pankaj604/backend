@@ -21,16 +21,16 @@ config({
   path: "./data/config.env",
 });
 
-// app.use(
-//   cors({
-//     origin: ["https://wellroom.in"],
-//     methods: ["GET", "POST", "PUT", "DELETE"],
-//     credentials: true,
-//   })
-// );
-//
+app.use(
+  cors({
+    origin: ["https://wellroom.in"],
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true,
+  })
+);
+
 const blockLocalhost = (req, res, next) => {
-  if (req.headers.host && req.headers.host.startsWith('http://localhost')) {
+  if (req.headers.host && req.headers.host.startsWith('localhost')) {
     // Reject the request with a forbidden (403) status code
     return res.status(403).json({ message: 'Access from localhost is not allowed.' });
   }
