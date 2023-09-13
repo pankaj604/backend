@@ -21,13 +21,26 @@ config({
   path: "./data/config.env",
 });
 
-app.use(
-  cors({
-    origin: ["https://wellroom.in"],
-    methods: ["GET", "POST", "PUT", "DELETE"],
-    credentials: true,
-  })
-);
+// app.use(
+//   cors({
+//     origin: ["https://wellroom.in"],
+//     methods: ["GET", "POST", "PUT", "DELETE"],
+//     credentials: true,
+//   })
+// );
+const allowedOrigins = ['https://wellroom.in'];
+
+const corsOptions = {
+  origin: function (origin, callback) {
+    if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+};
+
+app.use(cors(corsOptions));
 
 app.use(express.urlencoded());
 app.use(express.json());
