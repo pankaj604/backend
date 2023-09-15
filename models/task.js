@@ -25,6 +25,7 @@ const roomSchema = new mongoose.Schema({
     default: false,
   },
   image: "string",
+  roomid : "string",
   image2: "string",
   createdAt: {
     type: Date,

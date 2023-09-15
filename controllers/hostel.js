@@ -20,6 +20,14 @@ export const addhostel = async (req, res, next) => {
       }
     );
 
+
+    //
+
+
+
+    //
+
+
     const {
       city,
       rent,
@@ -32,10 +40,33 @@ export const addhostel = async (req, res, next) => {
       gatetime,
       facilites,
       hostelfor,
+      
     } = req.body;
     const user = req.user;
     console.log(global.image);
     console.log(global.image2);
+
+    //
+    function generateRandomId() {
+      const firstLetter = 'H';
+      const remainingLetters = generateRandomNumericalString(3);
+      return firstLetter + remainingLetters;
+    }
+    
+    function generateRandomNumericalString(length) {
+      const characters = '0123456789';
+      let result = '';
+      for (let i = 0; i < length; i++) {
+        const randomIndex = Math.floor(Math.random() * characters.length);
+        result += characters.charAt(randomIndex);
+      }
+      return result;
+    }
+    
+    // Example usage:
+    const randomId = generateRandomId();
+
+    //
     const hostel = await Hostel.create({
       city,
       rent,
@@ -51,6 +82,7 @@ export const addhostel = async (req, res, next) => {
       image2: global.image2,
       user,
       hostelfor,
+      hostelid : randomId
     });
     return res.status(200).json({
       success: true,

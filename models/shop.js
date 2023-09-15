@@ -26,6 +26,7 @@ const shopSchema = new mongoose.Schema({
   },
   image: "string",
   image2: "string",
+  shopid : "string",
   createdAt: {
     type: Date,
     default: Date.now,

@@ -100,6 +100,28 @@ export const addshop = async (req, res, next) => {
 
     const { city, size, area, nearby, rent, mobile, address } = req.body;
     const user = req.user;
+    //
+
+    function generateRandomId() {
+      const firstLetter = 'S';
+      const remainingLetters = generateRandomNumericalString(3);
+      return firstLetter + remainingLetters;
+    }
+    
+    function generateRandomNumericalString(length) {
+      const characters = '0123456789';
+      let result = '';
+      for (let i = 0; i < length; i++) {
+        const randomIndex = Math.floor(Math.random() * characters.length);
+        result += characters.charAt(randomIndex);
+      }
+      return result;
+    }
+    
+    // Example usage:
+    const randomId = generateRandomId();
+
+    //
     const room = await Shop.create({
       city,
       size,
@@ -111,6 +133,7 @@ export const addshop = async (req, res, next) => {
       image: global.image,
       image2: global.image2,
       user,
+      shopid : randomId
     });
     return res.status(200).json({
       success: true,

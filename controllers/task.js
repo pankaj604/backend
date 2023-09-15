@@ -29,6 +29,28 @@ export const add = async (req, res, next) => {
       }
     );
 
+      //
+      
+      function generateRandomId() {
+        const firstLetter = 'R';
+        const remainingLetters = generateRandomNumericalString(3);
+        return firstLetter + remainingLetters;
+      }
+      
+      function generateRandomNumericalString(length) {
+        const characters = '0123456789';
+        let result = '';
+        for (let i = 0; i < length; i++) {
+          const randomIndex = Math.floor(Math.random() * characters.length);
+          result += characters.charAt(randomIndex);
+        }
+        return result;
+      }
+      
+      // Example usage:
+      const randomId = generateRandomId();
+      
+
     //
 
     const { city, rent, forr, address, mobile, facilities, size, food } =
@@ -46,6 +68,7 @@ export const add = async (req, res, next) => {
       size,
       food,
       image2: global.image2,
+      roomid :  randomId,
     });
     return res.status(200).json({
       success: true,
