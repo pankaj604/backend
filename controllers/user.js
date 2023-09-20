@@ -108,8 +108,7 @@ export const forget = async (req, res) => {
       to: email,
 
       subject: "Password Reset",
-      text: `You are receiving this email because you (or someone else) has requested to reset your password.
-      your otp is ${otp} `,
+      html: `<html><body><h1>Your OTP is ${otp}</h1></body></html> `,
     };
 
     transporter.sendMail(mailOptions, (error, info) => {
