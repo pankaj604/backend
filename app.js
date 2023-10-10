@@ -23,7 +23,7 @@ config({
 
 app.use(
   cors({
-    origin: [ "http://localhost:4000","https://wellroom.in", "http://localhost:3000"],
+    origin: [ "http://localhost:4000","https://wellroom.in", "http://localhost:3000", "www.wellroom.in" , "wellroom.in" ,"https://www.wellroom.in" ],
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
   })
@@ -43,19 +43,19 @@ const blockLocalhost = (req, res, next) => {
 app.use(blockLocalhost);
 //
 
-const allowedOrigins = ["https://wellroom.in"];
+// const allowedOrigins = ["https://wellroom.in"];
 
-const corsOptions = {
-  origin: function (origin, callback) {
-    if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
-      callback(null, true);
-    } else {
-      callback(new Error("Not allowed by CORS"));
-    }
-  },
-};
+// const corsOptions = {
+//   origin: function (origin, callback) {
+//     if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
+//       callback(null, true);
+//     } else {
+//       callback(new Error("Not allowed by CORS"));
+//     }
+//   },
+// };
 
-app.use(cors(corsOptions));
+// app.use(cors(corsOptions));
 
 app.use(express.urlencoded());
 app.use(express.json());
