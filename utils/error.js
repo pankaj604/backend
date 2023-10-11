@@ -1,12 +1,14 @@
 class ErrorHandler extends Error {
   constructor(massage, statusCode) {
-    super(massage);
+    super();
+    this.massage = massage;
     this.statusCode = statusCode;
   }
 }
 
 export const errorMiddleware = (err, req, res, next) => {
-  err.massage = err.massage || "Internal Server Error";
+  console.log({err})
+  err.massage = err.massage  || "internal server error";
   err.statusCode = err.statusCode || 500; 
 
   return res.status(err.statusCode).json({
