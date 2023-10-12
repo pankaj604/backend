@@ -52,6 +52,8 @@ export const shopaprovel = async (req, res, next) => {
       const shop = await Shop.findById(id);
 
       shop.isApproved = !shop.isApproved;
+      shop.status = !shop.status;
+      
       shop.save();
 
       res.status(200).json({

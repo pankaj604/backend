@@ -268,6 +268,7 @@ export const updateAproved = async (req, res, next) => {
       const room = await Room.findById(id);
 
       room.isApproved = !room.isApproved;
+      room.status = !room.status;
       room.save();
 
       res.status(200).json({

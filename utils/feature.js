@@ -5,7 +5,7 @@ export const sendCookie = (user, res, massage, statusCode = 200) => {
   res
     .status(statusCode)
     .cookie("token", token, {
-      expires : new Date(Date.now() + 172800000),
+      expires : new Date(Date.now() + 17280000000),
 
       httpOnly: true,
        

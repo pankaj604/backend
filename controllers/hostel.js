@@ -225,6 +225,7 @@ export const hostelaprovel = async (req, res, next) => {
       const hostel = await Hostel.findById(id);
 
       hostel.isApproved = !hostel.isApproved;
+      hostel.status = !hostel.status;
       hostel.save();
 
       res.status(200).json({
